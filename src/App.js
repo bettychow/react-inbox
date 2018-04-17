@@ -35,28 +35,18 @@ class App extends Component {
       })
     }
 
-    applyLabel = (label) => {
-      this.setState({
-        messages: this.state.messages.map(message => {
-          if(message.selected && label !== 'Apply label') {
-            if(!message.labels.includes(label)) {
-               message.labels.push(label)
-            } 
-          } 
-          return message
-        })
-      })
-    }
-
-    removeLabel = (label) => {
+    applyRemoveLabel = (label, addLabel) => {
       this.setState({
         messages: this.state.messages.map(message => {
           if(message.selected && label !== 'Apply label') {
             const index = message.labels.indexOf(label)
-            if(index >= 0) {
+            if(index < 0 && addLabel) {
+               message.labels.push(label)
+            }
+            if(index >= 0 && !addLabel) {
               message.labels.splice(index, 1)
-            } 
-          }
+            }  
+          } 
           return message
         })
       })
@@ -89,7 +79,7 @@ class App extends Component {
           toggleSelectAll={this.toggleSelectAll}
           markReadStatus={this.markReadStatus}
           deleteMessage={this.deleteMessage}
-          applyLabel={this.applyLabel}
+          applyRemoveLabel={this.applyRemoveLabel}
           removeLabel={this.removeLabel}
         />
         <MessagesComponent 

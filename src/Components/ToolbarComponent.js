@@ -5,7 +5,7 @@ class ToolbarComponent extends Component {
   
   render() {
     // let unreadCount = 0;
-    const { messages, toggleSelectAll, markReadStatus, deleteMessage, applyLabel, removeLabel } = this.props
+    const { messages, toggleSelectAll, markReadStatus, deleteMessage, applyRemoveLabel, removeLabel } = this.props
     const selectedCount = messages.filter(message => message.selected).length;
     const unreadMessages = messages.filter(message => !message.read).length
     let selectAllClass;
@@ -13,7 +13,7 @@ class ToolbarComponent extends Component {
     const changeHandler = (e, addLabel) => {
       const selectedIndex = e.target.selectedIndex
       const labelSelected = e.target.options[selectedIndex].value
-      addLabel ? applyLabel(labelSelected) : removeLabel(labelSelected)
+      applyRemoveLabel(labelSelected, addLabel)
     }
 
     switch (selectedCount) {
